@@ -18,7 +18,9 @@ if [ $action == "images" ]
 then
     echo "Removing Images"
     #rmi is used to delete the images and docker images -q gives all the docker image ids. 
-    docker rmi -f $(docker images -q)
+    #docker rmi -f $(docker images -q)
+    # Using awk command 
+    docker rmi $(docker images | grep -v "latest" | awk 'NR>1 {print $3}')
 elif [ $action == "containers" ]
 then
     echo "Removing Containers"
